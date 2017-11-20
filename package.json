@@ -1,0 +1,51 @@
+{
+  "name": "react-mql-manager",
+  "version": "0.0.1",
+  "description": "React Media Query List mananager component",
+  "main": "index.js",
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "author": {
+    "name": "Alexander Brown",
+    "email": "ajcbrown820@gmail.com",
+    "twitter": "@awebofbrown"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=15 || ^0.14.7"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "enzyme": "^3.1.1",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "eslint": "^4.10.0",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-plugin-class-property": "^1.0.6",
+    "eslint-plugin-jest": "^21.3.2",
+    "eslint-plugin-react": "^7.4.0",
+    "jest": "^21.2.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.4.1 || ^0.14.7",
+    "react-dom": "^15.3.0 || ^0.14.7",
+    "react-test-renderer": "15.5",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-eslint": "^4.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^2.0.1"
+  },
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "test": "jest --verbose"
+  }
+}
