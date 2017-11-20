@@ -1,5 +1,6 @@
 {
   "presets": ["react", ["env", { "modules": false }], "stage-2"],
+  "plugins": ["transform-regenerator"],
   "env": {
     "test": {
       "presets": [["env"], "react", "stage-2"]
