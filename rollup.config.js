@@ -18,7 +18,7 @@ export default {
     commonjs()
   ],
   output: {
-    file: "./lib/index.min.js",
+    file: "./cjs/react-mql-manager.min.js",
     format: "cjs",
     exports: "named"
   }
