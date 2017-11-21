@@ -67,7 +67,7 @@ const ReactApp = () => (
         <div>
             <MediaQueriesRenderProps render={({mobile, tablet, desktop}) => (
                 <SomeChild mediaQueries={{mobile, tablet, desktop}} />
-            )}>
+            )} />
         </div>
     </MediaQueryProvider>
 )
