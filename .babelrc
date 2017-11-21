@@ -1,9 +1,9 @@
 {
-  "presets": ["react", ["env", { "modules": false }], "stage-2"],
+  "presets": ["react", ["env", { "modules": false }], "stage-3"],
   "plugins": ["transform-regenerator"],
   "env": {
     "test": {
-      "presets": [["env"], "react", "stage-2"]
+      "presets": [["env"], "react", "stage-3"]
     }
   }
 }

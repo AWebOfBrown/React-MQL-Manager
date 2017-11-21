@@ -5,7 +5,11 @@
   "engines": {
     "node": ">=7.6.0"
   },
-  "files": ["cjs", "es", "umd"],
+  "files": [
+    "cjs",
+    "es",
+    "umd"
+  ],
   "main": "cjs/react-mql-manager.min.js",
   "module": "es/react-mql-manager.min.js",
   "unpkg": "umd/react-mql-manager.min.js",
@@ -27,12 +31,11 @@
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
     "enzyme": "^3.1.1",
     "enzyme-adapter-react-15": "^1.0.5",
     "eslint": "^4.10.0",
     "eslint-config-prettier": "^2.7.0",
-    "eslint-plugin-class-property": "^1.0.6",
     "eslint-plugin-jest": "^21.3.2",
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
@@ -50,10 +53,13 @@
   },
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "eslint-check":
-      "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "test": "jest --verbose",
     "prepublish": "yarn run test && yarn run build"
   },
-  "keywords": ["react", "media query list", "responsive"]
+  "keywords": [
+    "react",
+    "media query list",
+    "responsive"
+  ]
 }
