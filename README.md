@@ -1,22 +1,29 @@
 # React-MQL-Manager
-React-MQL-Manager is an unopinionated, flexible set of modules allowing you to handle media queries in React (or JS generally) regardless of your approach to state management. At its core is the MQL-Manager class (not a React component) that internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
+React-MQL-Manager is an unopinionated, flexible set of modules allowing you to handle media queries in React (or JS generally) regardless of your approach to state management.
 
-```js
+## Install
+`yarn add react-mql-manager` 
+or
+`npm i -s react-mql-manager`
+
+## Use
+At its core is the MQL-Manager class (not a React component) that internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
+
+```javascript
 // ES Modules
-import {MQLManager} from 'react-mql-manager`; 
+import {MQLManager} from 'react-mql-manager`
 // or commonJS
 const MQLManager = require('react-mql-manager').MQLManager
 // or UMD 
 
 const myQueryManager = new MQLManager({
     queries: {
-        S: "(max-width: 480px)", // values must be a valid css media query string
+        S: "(max-width: 480px)", 
         M: "(min-width: 481px) and (max-width: 1079px)",
         L: "(min-width: 1080px)"
-    };
-    onChange: ({S, M, L}) => doSomethingOnChange(S,M,L), // get back an object of your queries' keys and their (boolean) match state,
-    // e.g. {S: false, M: true, L: false}, whenever the match states changes.
-    debounce: 1000, // optional (number of microseconds)
+    },
+    onChange: ({S, M, L}) => doSomethingOnChange(S,M,L),
+    debounce: 1000
 })
 ```
 Obviously we need somewhere to keep our match state and send it to components that want to know about it. React-MQL-Manager can integrate with any typical approach to state management in React: using no state management library, Redux, and MobX.  
