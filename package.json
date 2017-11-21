@@ -2,13 +2,15 @@
   "name": "react-mql-manager",
   "version": "0.0.1",
   "description": "React Media Query List Manager",
-  "main": "cjs/react-mql-manager.min.js",
   "engines": {
     "node": ">=7.6.0"
   },
+  "files": ["cjs", "es", "umd"],
+  "main": "cjs/react-mql-manager.min.js",
+  "module": "es/react-mql-manager.min.js",
+  "unpkg": "umd/react-mql-manager.min.js",
   "author": {
     "name": "Alexander Brown",
-    "email": "ajcbrown820@gmail.com",
     "twitter": "@awebofbrown"
   },
   "license": "MIT",
@@ -16,8 +18,7 @@
     "react": ">=15 || ^0.14.7"
   },
   "dependencies": {
-    "prop-types": "^15.5.10",
-    "regenerator-runtime": "^0.11.0"
+    "prop-types": "^15.5.10"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -39,16 +40,20 @@
     "react": "^15.4.1 || ^0.14.7",
     "react-dom": "^15.3.0 || ^0.14.7",
     "react-test-renderer": "15.5",
+    "regenerator-runtime": "^0.11.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-eslint": "^4.0.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-uglify": "^2.0.1"
+    "rollup-plugin-uglify": "^2.0.1",
+    "uglify-es": "^3.1.10"
   },
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "eslint-check":
+      "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "test": "jest --verbose",
     "prepublish": "yarn run test && yarn run build"
-  }
+  },
+  "keywords": ["react", "media query list", "responsive"]
 }

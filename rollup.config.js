@@ -3,6 +3,7 @@ import babel from "rollup-plugin-babel";
 import eslint from "rollup-plugin-eslint";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
+import { minify } from "uglify-es";
 
 export default {
   input: "modules/index.js",
@@ -12,14 +13,28 @@ export default {
       exclude: "node_modules/**",
       plugins: ["external-helpers"]
     }),
-    uglify(),
     eslint(),
     resolve(),
-    commonjs()
+    commonjs(),
+    uglify({}, minify)
   ],
-  output: {
-    file: "./cjs/react-mql-manager.min.js",
-    format: "cjs",
-    exports: "named"
-  }
+  globals: {
+    react: "React"
+  },
+  output: [
+    {
+      file: "./cjs/react-mql-manager.min.js",
+      format: "cjs",
+      exports: "named"
+    },
+    {
+      file: "./es/react-mql-manager.min.js",
+      format: "es"
+    },
+    {
+      file: "./umd/react-mql-manager.min.js",
+      format: "umd",
+      name: "react-mql-manager"
+    }
+  ]
 };
