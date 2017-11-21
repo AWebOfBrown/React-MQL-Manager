@@ -7,14 +7,13 @@ or
 `npm i -s react-mql-manager`
 
 ## Use
+React-MQL-Manager can be consumed as CommonJS modules, ES Modules or UMD.
+
 At its core is the MQL-Manager class (not a React component) that internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
 
 ```javascript
 // ES Modules
 import {MQLManager} from 'react-mql-manager`
-// or commonJS
-const MQLManager = require('react-mql-manager').MQLManager
-// or UMD 
 
 const myQueryManager = new MQLManager({
     queries: {
