@@ -61,7 +61,7 @@ class MQLManager {
     if (MQL.media === "not all") {
       throw new Error(`The MQL media query for MQLManager.queries["${queryName}"] is being ignored, likely because
         the provided media query string for that key is invalid. Please alter this query string: ${this
-          .queries[queryName]}.`);
+          .queries[queryName]}. For more details: https://goo.gl/QvLybE`);
     }
   }
 
