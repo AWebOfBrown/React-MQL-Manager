@@ -13,7 +13,7 @@ At its core is the MQL-Manager class (not a React component) that internally con
 
 ```javascript
 // ES Modules
-import {MQLManager} from 'react-mql-manager`
+import {MQLManager} from "react-mql-manager"
 
 const myQueryManager = new MQLManager({
     queries: {
