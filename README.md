@@ -1,6 +1,24 @@
 # React-MQL-Manager
 React-MQL-Manager is an unopinionated, flexible set of modules allowing you to handle media queries in React (or JS generally) regardless of your approach to state management. It internally constructs [Media Query Lists](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList) and provides an API allowing you to react to changes.
 
+At the libraries' core is the MQL-Manager class (not a React component) that internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
+
+```javascript
+// ES Modules
+import {MQLManager} from "react-mql-manager"
+
+const myQueryManager = new MQLManager({
+    queries: {
+        S: "(max-width: 480px)", 
+        M: "(min-width: 481px) and (max-width: 1079px)",
+        L: "(min-width: 1080px)"
+    },
+    onChange: ({S, M, L}) => doSomethingOnChange(S,M,L),
+    debounce: 1000
+})
+```
+The `onChange` argument you provide fires every time one of your queries' match state changes, but can be debounced using the optional `debounce` argument (type: Num of microseconds).
+
 React-MQL-Manager can be consumed as CommonJS modules, ES modules or UMD.
 
 ## Install
@@ -24,22 +42,3 @@ See [documentation](https://github.com/AWebOfBrown/React-MQL-Manager/blob/master
 
 The most common use-case would be to wrap a custom React (class) component, ideally one that does not
 unmount, with `react-redux`'s `connect()` or `mobx-react`'s `inject()`. You would then import and set an MQLManager as your component's class property, and lastly specify, respectively, a mapDispatchToProps function, or a setter action injected from a MobX store, to MQLManager's onChange argument. For more, see the documentation and the codesandbox demo, linked above, for simple integrations with both libraries.
-
-## Generic Implementation Details
-At the libraries' core is the MQL-Manager class (not a React component) that internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
-
-```javascript
-// ES Modules
-import {MQLManager} from "react-mql-manager"
-
-const myQueryManager = new MQLManager({
-    queries: {
-        S: "(max-width: 480px)", 
-        M: "(min-width: 481px) and (max-width: 1079px)",
-        L: "(min-width: 1080px)"
-    },
-    onChange: ({S, M, L}) => doSomethingOnChange(S,M,L),
-    debounce: 1000
-})
-```
-The `onChange` argument you provide fires every time one of your queries' match state changes, but can be debounced using the optional `debounce` argument (type: Num of microseconds).
