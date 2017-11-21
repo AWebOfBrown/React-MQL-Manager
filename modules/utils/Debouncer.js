@@ -1,3 +1,5 @@
+import regeneratorRuntime from "regenerator-runtime";
+
 class Debouncer {
   constructor() {
     this.iterator = this.debouncer();
