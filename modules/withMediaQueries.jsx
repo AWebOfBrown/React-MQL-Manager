@@ -36,6 +36,14 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
     }
   }
 
+  function getDisplayName(WrappedComponent) {
+    return WrappedComponent.displayName || WrappedComponent.name || "Component";
+  }
+
+  WithMediaQueries.displayName = `WithMediaQueries(${getDisplayName(
+    WrappedComponent
+  )})`;
+
   WithMediaQueries.contextTypes = {
     mediaQueriesSubscription: PropTypes.func.isRequired
   };
