@@ -1,4 +1,6 @@
 # React-MQL-Manager
+[![npm version](https://badge.fury.io/js/react-mql-manager.svg)](https://badge.fury.io/js/react-mql-manager)
+
 React-MQL-Manager is an unopinionated, flexible set of modules allowing you to handle media queries in React (or JS generally) regardless of your approach to state management. It internally constructs [Media Query Lists](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList) and provides an API allowing you to react to changes.
 
 At the libraries' core is the MQL-Manager class (not a React component) that internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
