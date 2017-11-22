@@ -9,7 +9,7 @@ class Provider extends Component {
     this.subscribe = this.subscribe.bind(this);
     this.MQLManager = new MQLManager({
       debounce: props.debounce,
-      onChange: this.broadcast,
+      onChange: MQMatchState => this.broadcast(MQMatchState),
       queries: props.queries
     });
   }
