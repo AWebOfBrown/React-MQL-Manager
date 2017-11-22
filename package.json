@@ -5,11 +5,7 @@
   "engines": {
     "node": ">=7.6.0"
   },
-  "files": [
-    "cjs",
-    "es",
-    "umd"
-  ],
+  "files": ["cjs", "es", "umd"],
   "main": "cjs/react-mql-manager.min.js",
   "module": "es/react-mql-manager.min.js",
   "unpkg": "umd/react-mql-manager.min.js",
@@ -53,13 +49,10 @@
   },
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "eslint-check":
+      "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "test": "jest --verbose",
-    "prepublish": "yarn run test && yarn run build"
+    "prepare": "yarn run test && yarn run build"
   },
-  "keywords": [
-    "react",
-    "media query list",
-    "responsive"
-  ]
+  "keywords": ["react", "media query list", "responsive"]
 }
