@@ -26,7 +26,7 @@ React-MQL-Manager can be consumed as CommonJS modules, ES modules or UMD.
 
 or
 
-`npm -i react-mql-manager`
+`npm i react-mql-manager`
 
 ## Demo
 See a codesandbox.io demo of React-MQL-Manager with no state management lib, Redux, and Mobx, [here](https://codesandbox.io/s/p93xmm0zmm)
