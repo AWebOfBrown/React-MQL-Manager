@@ -28,11 +28,11 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
     }
 
     render() {
-      this.props = {
+      const allProps = {
         ...this.props,
         [this.mediaQueriesPropName]: this.state.mediaQueries
       };
-      return <WrappedComponent {...this.props} />;
+      return <WrappedComponent {...allProps} />;
     }
   }
 
