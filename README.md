@@ -29,7 +29,7 @@ or
 `npm i react-mql-manager`
 
 ## Demo
-See a codesandbox.io demo of React-MQL-Manager with no state management lib, Redux, and Mobx, [here](https://codesandbox.io/s/p93xmm0zmm)
+See a codesandbox.io demo of React-MQL-Manager with no state management lib, Redux, and Mobx, and React-Broadcast [here](https://codesandbox.io/s/p93xmm0zmm)
 
 ## Documentation / How To: 
 ### Use with React and No State Management Library / API
