@@ -1,6 +1,6 @@
 {
   "name": "react-mql-manager",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React Media Query List Manager",
   "engines": {
     "node": ">=7.6.0"
@@ -9,6 +9,9 @@
   "main": "cjs/react-mql-manager.min.js",
   "module": "es/react-mql-manager.min.js",
   "unpkg": "umd/react-mql-manager.min.js",
+  "repository": {
+    "url": "https://github.com/AWebOfBrown/React-MQL-Manager"
+  },
   "author": {
     "name": "Alexander Brown",
     "twitter": "@awebofbrown"
