@@ -81,7 +81,7 @@ The Provider component accepts two properties, notably it does not need an onCha
 
 | Property | Type | Required | Description |
 |:---|:---|:---:|:---|
-| queries | object | ✓ | An object where the values must be valid css media query strings and the key names can be any string. Note that if you use the `<MediaQueriesRenderProps>` component, it's render method will use your queries' object keys as its arguments. |
+| queries | object | ✓ | An object where the values must be valid css media query strings and the key names can be any string. Note that if you use the `<MediaQueriesRenderProps>` component, it's render method will use your queries' object keys as the sole argument object's keys, and the match state of the query (Boolean) as its values. |
 | debounce | number | x | An optional debounce number (of microseconds) applied to the internally constructed onChange function. | 
 
 ## withMediaQueries API
