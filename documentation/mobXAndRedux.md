@@ -8,7 +8,7 @@ The MQLManager constructor function accepts one required argument, being an obje
 | Property | Type | Required | Description |
 |:---|:---|:---:|:---|
 | queries | Object | ✓ | An object where the values must be valid css media query strings and the key names can be any string. Note that if you use the `<MediaQueriesRenderProps>` component (explained later), it's render method will use your queries' object keys as its arguments. |
-| onChange | Function | ✓ | A function which fires when one of your media queries matches, or no longer matches. Use this to dispatch an action or trigger a setter, where the argument provided to the function is your queries object, with boolean values representing whether the query matches or not (see example below).|
+| onChange | Function | ✓ | A function which fires when one of your media queries matches, or no longer matches. Use this to dispatch an action or trigger a setter, where the argument provided to the function is your queries object, with boolean values representing whether the queries match or not (see example below).|
 | debounce | Number | x | An optional debounce number (of microseconds) applied to your onChange function. | 
 
 # Examples
@@ -18,7 +18,7 @@ farmiliar with the `<Provider />` used by Redux / MobX's React integrations and 
 rendered it somewhere (above) in the React component tree.
 
 Also note: 
-1. The codesandbox demo illustrates a full integration, store setup & all.
+1. The [codesandbox demo](https://codesandbox.io/s/p93xmm0zmm) illustrates a full integration, store setup & all.
 2. The implementations below are cleaner if you can use class properties via babel.
 
 ## Redux
