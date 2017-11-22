@@ -8,7 +8,8 @@ Below we will explore using the `<Provider>` as described, however, it should be
 With that said, let's explore the API / guide to easily consuming React-MQL-Manager:
 
 ## Examples Using the Provider
-For a full, working implementation see the [codesandbox.io demo](https://codesandbox.io/s/p93xmm0zmm)
+For a full, working implementation see the [codesandbox.io demo](https://codesandbox.io/s/p93xmm0zmm).
+
 Import the Provider component and render it as near as possible to the top of your React component tree, as demonstrated below. Note that no components will have access to the media queries' match state just yet.
 
 ```javascript
