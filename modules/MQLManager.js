@@ -41,10 +41,10 @@ class MQLManager {
     }
   }
 
-  broadcastState(immediate) {
+  broadcastState() {
     BroadcastDebouncer.send(
       () => this.onChange(this.getMatchState()),
-      immediate ? 0 : this.debounce
+      this.debounce
     );
   }
 
@@ -54,7 +54,7 @@ class MQLManager {
       this.validateMQLMedia(this.MQLs[queryName], queryName);
       this.MQLs[queryName].addListener(() => this.broadcastState());
     });
-    this.broadcastState(true);
+    this.broadcastState();
   }
 
   validateMQLMedia(MQL, queryName) {

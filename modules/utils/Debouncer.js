@@ -8,19 +8,18 @@ class Debouncer {
 
   *debouncer() {
     while (true) {
-      let { fn, wait, immediate } = yield;
+      let { fn, wait } = yield;
       let pendingFunction;
-      if (wait || immediate) {
-        while (wait) {
-          clearTimeout(pendingFunction);
-          pendingFunction = setTimeout(
-            () => this.iterator.next({ fn, wait: 0 }),
-            wait
-          );
-          ({ fn, wait } = yield);
-        }
-        fn();
+      while (wait) {
+        clearTimeout(pendingFunction);
+        pendingFunction = setTimeout(
+          () => this.iterator.next({ fn, wait: 0 }),
+          wait
+        );
+        ({ fn, wait } = yield);
       }
+      clearTimeout(pendingFunction);
+      fn();
     }
   }
 
@@ -34,10 +33,7 @@ class Debouncer {
       throw new TypeError(
         `The second argument to Debouncer.send() must be a number representing the debounce duration (in microseconds)`
       );
-
-    let immediate = false;
-    if (wait === 0) immediate = true;
-    this.iterator.next({ fn, wait, immediate });
+    this.iterator.next({ fn, wait });
   }
 }
 
