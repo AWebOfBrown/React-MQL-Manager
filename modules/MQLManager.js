@@ -1,5 +1,4 @@
 import Debouncer from "./utils/Debouncer";
-const BroadcastDebouncer = new Debouncer();
 
 class MQLManager {
   constructor({ queries, debounce = 0, onChange }) {
@@ -7,6 +6,7 @@ class MQLManager {
     this.queries = queries;
     this.debounce = debounce;
     this.onChange = onChange;
+    this.BroadcastDebouncer = new Debouncer();
 
     this.validateArgs({ queries, debounce, onChange });
     this.constructMQLs();
@@ -42,7 +42,7 @@ class MQLManager {
   }
 
   broadcastState({ immediate } = { immediate: false }) {
-    BroadcastDebouncer.send(
+    this.BroadcastDebouncer.send(
       () => this.onChange(this.getMatchState()),
       immediate ? 0 : this.debounce
     );
