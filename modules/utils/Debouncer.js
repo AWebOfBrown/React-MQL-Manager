@@ -10,17 +10,15 @@ class Debouncer {
     while (true) {
       let { fn, wait } = yield;
       let pendingFunction;
-      if (wait) {
-        while (wait) {
-          clearTimeout(pendingFunction);
-          pendingFunction = setTimeout(
-            () => this.iterator.next({ fn, wait: 0 }),
-            wait
-          );
-          ({ fn, wait } = yield);
-        }
+      while (wait) {
         clearTimeout(pendingFunction);
+        pendingFunction = setTimeout(
+          () => this.iterator.next({ fn, wait: 0 }),
+          wait
+        );
+        ({ fn, wait } = yield);
       }
+      clearTimeout(pendingFunction);
       fn();
     }
   }
