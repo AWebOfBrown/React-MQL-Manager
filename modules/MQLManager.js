@@ -1,18 +1,22 @@
 import Debouncer from "./utils/Debouncer";
 
 class MQLManager {
-  constructor({ queries, debounce = 0, onChange }) {
+  constructor({ queries, debounce = 0, onChange, serverMatch = false }) {
     this.MQLs = {};
     this.queries = queries;
     this.debounce = debounce;
     this.onChange = onChange;
     this.BroadcastDebouncer = new Debouncer();
 
-    this.validateArgs({ queries, debounce, onChange });
-    this.constructMQLs();
+    this.validateArgs({ queries, debounce, onChange, serverMatch });
+    if (typeof window === "object") {
+      this.constructMQLs();
+    } else {
+      this.constructMQLsServerSide();
+    }
   }
 
-  validateArgs({ queries, debounce, onChange }) {
+  validateArgs({ queries, debounce, onChange, serverMatch }) {
     if (!onChange || typeof onChange !== "function") {
       throw new Error(
         `Provide an onChange function to MQLManager
@@ -24,6 +28,21 @@ class MQLManager {
       throw new Error(
         `Please provide MQLManager with an object of media query strings`
       );
+    }
+
+    if (serverMatch) {
+      let queryStrings = [];
+      for (let queryString of queries) {
+        queryStrings.push(queryString);
+      }
+      if (
+        typeof serverMatch !== "string" ||
+        !queryStrings.includes(serverMatch)
+      ) {
+        throw new Error(`The serverMatch prop is the query string that you want to match when server-rendering your app. 
+      You will receieve this error if you specified this prop but have not provided a string, or the string !==
+      one of the strings you passed to the queries prop.`);
+      }
     }
 
     for (let query in queries) {
@@ -46,6 +65,22 @@ class MQLManager {
       () => this.onChange(this.getMatchState()),
       immediate ? 0 : this.debounce
     );
+  }
+
+  constructMQLsServerSide() {
+    let { queries, serverMatch } = this.props;
+
+    this.MQLs = Object.keys(queries).reduce((MQLs, currentKey) => {
+      if (serverMatch) {
+        queries[currentKey] === serverMatch
+          ? (MQLs[currentKey] = { matches: true })
+          : (MQLs[currentKey] = { matches: false });
+
+        return MQLs;
+      }
+      MQLs[currentKey] = { matches: true };
+      return MQLs;
+    }, {});
   }
 
   constructMQLs() {
