@@ -1,14 +1,22 @@
 import Debouncer from "./utils/Debouncer";
 
 class MQLManager {
-  constructor({ queries, debounce = 0, onChange, serverMatch = false }) {
+  constructor({ queries, debounce = 0, onChange, serverMatches = false }) {
     this.MQLs = {};
     this.queries = queries;
     this.debounce = debounce;
     this.onChange = onChange;
     this.BroadcastDebouncer = new Debouncer();
+    this.serverMatches =
+      typeof serverMatches === "string" ? [serverMatches] : serverMatches;
 
-    this.validateArgs({ queries, debounce, onChange, serverMatch });
+    this.validateArgs({
+      queries,
+      debounce,
+      onChange,
+      serverMatches: this.serverMatches
+    });
+
     if (typeof window === "object") {
       this.constructMQLs();
     } else {
@@ -16,7 +24,7 @@ class MQLManager {
     }
   }
 
-  validateArgs({ queries, debounce, onChange, serverMatch }) {
+  validateArgs({ queries, debounce, onChange, serverMatches }) {
     if (!onChange || typeof onChange !== "function") {
       throw new Error(
         `Provide an onChange function to MQLManager
@@ -30,28 +38,30 @@ class MQLManager {
       );
     }
 
-    if (serverMatch) {
+    if (serverMatches) {
+      if (!Array.isArray(serverMatches)) {
+        throw new Error(`The serverMatches prop provided to react-mql-manager must be an array containing one or more of the
+        query strings you provided as the "queries" prop.`);
+      }
+
       let queryStrings = [];
-      for (let queryString of queries) {
-        queryStrings.push(queryString);
-      }
-      if (
-        typeof serverMatch !== "string" ||
-        !queryStrings.includes(serverMatch)
-      ) {
-        throw new Error(`The serverMatch prop is the query string that you want to match when server-rendering your app. 
-      You will receieve this error if you specified this prop but have not provided a string, or the string !==
-      one of the strings you passed to the queries prop.`);
-      }
+      Object.values(queries).forEach(query => queryStrings.push(query));
+
+      serverMatches.forEach(serverMatch => {
+        if (!queryStrings.includes(serverMatch)) {
+          throw new Error(`serverMatches prop provided to react-mql-manager must be an array containing one or more of the
+          query strings you provided as the "queries" prop.`);
+        }
+      });
     }
 
-    for (let query in queries) {
-      if (typeof queries[query] !== "string") {
+    Object.values(queries).forEach(query => {
+      if (typeof query !== "string") {
         throw new Error(
           `Values of queries object provided to MQLManager must be media query strings`
         );
       }
-    }
+    });
 
     if (debounce && typeof debounce !== "number") {
       throw new Error(
@@ -68,11 +78,11 @@ class MQLManager {
   }
 
   constructMQLsServerSide() {
-    let { queries, serverMatch } = this.props;
+    let { queries, serverMatches } = this;
 
     this.MQLs = Object.keys(queries).reduce((MQLs, currentKey) => {
-      if (serverMatch) {
-        queries[currentKey] === serverMatch
+      if (serverMatches) {
+        serverMatches.includes(queries[currentKey])
           ? (MQLs[currentKey] = { matches: true })
           : (MQLs[currentKey] = { matches: false });
 
