@@ -1,11 +1,11 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-15";
 configure({ adapter: new Adapter() });
 
-import { withMediaQueries, Provider } from "../../index";
-import { queries, mockMatchMedia, queriesMatchState } from "../testUtils";
+import { withMediaQueries, Provider } from "../../../index";
+import { queries, mockMatchMedia, queriesMatchState } from "../../testUtils";
 
 class FalseFromSCU extends React.Component {
   shouldComponentUpdate() {
