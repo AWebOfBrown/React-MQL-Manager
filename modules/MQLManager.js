@@ -38,6 +38,14 @@ class MQLManager {
       );
     }
 
+    Object.values(queries).forEach(query => {
+      if (typeof query !== "string") {
+        throw new Error(
+          `Values of queries object provided to MQLManager must be media query strings`
+        );
+      }
+    });
+
     if (serverMatches) {
       if (!Array.isArray(serverMatches)) {
         throw new Error(`The serverMatches prop provided to react-mql-manager must be an array containing one or more of the
@@ -54,14 +62,6 @@ class MQLManager {
         }
       });
     }
-
-    Object.values(queries).forEach(query => {
-      if (typeof query !== "string") {
-        throw new Error(
-          `Values of queries object provided to MQLManager must be media query strings`
-        );
-      }
-    });
 
     if (debounce && typeof debounce !== "number") {
       throw new Error(
