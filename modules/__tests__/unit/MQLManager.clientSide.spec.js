@@ -3,20 +3,20 @@ import { queries, mockMatchMedia } from "../testUtils";
 
 let onChangeSpy;
 let testMQLManager;
-let debounce = 2000;
+let debounce = 100;
 
-beforeAll(() => {
-  window.matchMedia = mockMatchMedia;
+describe("MQLManager client-side", () => {
+  beforeAll(() => {
+    window.matchMedia = mockMatchMedia;
 
-  onChangeSpy = jest.fn(matchState => matchState);
-  testMQLManager = new MQLManager({
-    queries,
-    onChange: onChangeSpy,
-    debounce
+    onChangeSpy = jest.fn(matchState => matchState);
+    testMQLManager = new MQLManager({
+      queries,
+      onChange: onChangeSpy,
+      debounce
+    });
   });
-});
 
-describe("MQLManager", () => {
   test("should call onChange during initialisation", () => {
     expect(onChangeSpy).toHaveBeenCalled();
   });
@@ -44,7 +44,7 @@ describe("MQLManager", () => {
     let badQueryManager = new MQLManager({
       queries: { faultyQueryName: "not used" },
       onChange: onChangeSpy,
-      debounce: 1000
+      debounce: 100
     });
     this.badMQL = { media: "not all" };
 
