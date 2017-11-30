@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class MediaQueriesRenderProps extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
+    console.log(context);
     super(props);
     this.unsubscribe = null;
     this.state = {
-      mediaQueries: {}
+      mediaQueries: context.mediaQueriesInitialState
     };
     if (props.children) {
       throw new Error(`MediaQueriesRenderProp expects a "render" method, instead of child elements, which is a function taking your media queries' keys
@@ -39,6 +40,8 @@ MediaQueriesRenderProps.propTypes = {
 };
 
 MediaQueriesRenderProps.contextTypes = {
-  mediaQueriesSubscription: PropTypes.func.isRequired
+  mediaQueriesSubscription: PropTypes.func.isRequired,
+  mediaQueriesInitialState: PropTypes.objectOf(PropTypes.bool).isRequired
 };
+
 export default MediaQueriesRenderProps;

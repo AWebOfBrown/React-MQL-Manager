@@ -12,6 +12,7 @@ class Provider extends Component {
       onChange: MQMatchState => this.broadcast(MQMatchState),
       queries: props.queries
     });
+    console.log(this.MQLManager.getMatchState());
   }
 
   subscribe(updateHOCFunction) {
@@ -41,7 +42,10 @@ class Provider extends Component {
   }
 
   getChildContext() {
-    return { mediaQueriesSubscription: this.subscribe };
+    return {
+      mediaQueriesSubscription: this.subscribe,
+      mediaQueriesInitialState: this.MQLManager.getMatchState()
+    };
   }
 
   render() {
@@ -50,7 +54,8 @@ class Provider extends Component {
 }
 
 Provider.childContextTypes = {
-  mediaQueriesSubscription: PropTypes.func.isRequired
+  mediaQueriesSubscription: PropTypes.func.isRequired,
+  mediaQueriesInitialState: PropTypes.objectOf(PropTypes.bool).isRequired
 };
 
 Provider.propTypes = {

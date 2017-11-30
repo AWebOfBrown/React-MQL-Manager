@@ -8,11 +8,12 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
   }
 
   class WithMediaQueries extends React.Component {
-    constructor(props) {
+    constructor(props, context) {
+      console.log(context);
       super(props);
       this.unsubscribe = null;
       this.state = {
-        mediaQueries: {}
+        mediaQueries: context.mediaQueriesInitialState
       };
       this.mediaQueriesPropName = mediaQueriesPropName || "mediaQueries";
     }
@@ -45,7 +46,8 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
   )})`;
 
   WithMediaQueries.contextTypes = {
-    mediaQueriesSubscription: PropTypes.func.isRequired
+    mediaQueriesSubscription: PropTypes.func.isRequired,
+    mediaQueriesInitialState: PropTypes.objectOf(PropTypes.bool).isRequired
   };
 
   return WithMediaQueries;

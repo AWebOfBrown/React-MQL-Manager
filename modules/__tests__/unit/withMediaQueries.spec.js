@@ -25,10 +25,6 @@ describe(`withMediaQueries`, () => {
     );
   });
 
-  test(`wMQ should pass down an (optionally renamed, empty) mediaQueries prop`, () => {
-    expect(shallowRender.props().customPropName).toEqual({});
-  });
-
   test(`should call unsubscribe on un-mount`, () => {
     const unsubSpy = jest.spyOn(shallowRender.instance(), "unsubscribe");
     shallowRender.unmount();
