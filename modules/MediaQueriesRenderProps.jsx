@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 class MediaQueriesRenderProps extends React.Component {
   constructor(props, context) {
-    console.log(context);
     super(props);
     this.unsubscribe = null;
     this.state = {

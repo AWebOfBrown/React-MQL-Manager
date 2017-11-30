@@ -12,7 +12,6 @@ class Provider extends Component {
       onChange: MQMatchState => this.broadcast(MQMatchState),
       queries: props.queries
     });
-    console.log(this.MQLManager.getMatchState());
   }
 
   subscribe(updateHOCFunction) {
