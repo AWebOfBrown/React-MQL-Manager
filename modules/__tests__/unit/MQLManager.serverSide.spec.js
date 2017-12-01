@@ -21,15 +21,7 @@ describe(`MQLManager server-side`, () => {
     });
   });
 
-  test(`should return an object of matches matching queries specified in serverMatches prop`, () => {
-    expect(testMQLManager.getMatchState()).toMatchObject({
-      S: false,
-      M: true,
-      L: true
-    });
-  });
-
-  test(`should return an object of matches with true values if serverMatches is not specified`, () => {
+  test(`should return an object of matches with true values`, () => {
     let noServerMatches = new MQLManager({
       queries,
       onChange: onChangeSpy,

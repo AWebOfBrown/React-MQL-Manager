@@ -1,20 +1,17 @@
 import Debouncer from "./utils/Debouncer";
 
 class MQLManager {
-  constructor({ queries, debounce = 0, onChange, serverMatches = false }) {
+  constructor({ queries, debounce = 0, onChange }) {
     this.MQLs = {};
     this.queries = queries;
     this.debounce = debounce;
     this.onChange = onChange;
     this.BroadcastDebouncer = new Debouncer();
-    this.serverMatches =
-      typeof serverMatches === "string" ? [serverMatches] : serverMatches;
 
     this.validateArgs({
       queries,
       debounce,
-      onChange,
-      serverMatches: this.serverMatches
+      onChange
     });
 
     if (typeof window === "object") {
@@ -24,7 +21,7 @@ class MQLManager {
     }
   }
 
-  validateArgs({ queries, debounce, onChange, serverMatches }) {
+  validateArgs({ queries, debounce, onChange }) {
     if (!onChange || typeof onChange !== "function") {
       throw new Error(
         `Provide an onChange function to MQLManager
@@ -46,23 +43,6 @@ class MQLManager {
       }
     });
 
-    if (serverMatches) {
-      if (!Array.isArray(serverMatches)) {
-        throw new Error(`The serverMatches prop provided to react-mql-manager must be an array containing one or more of the
-        query strings you provided as the "queries" prop.`);
-      }
-
-      let queryStrings = [];
-      Object.values(queries).forEach(query => queryStrings.push(query));
-
-      serverMatches.forEach(serverMatch => {
-        if (!queryStrings.includes(serverMatch)) {
-          throw new Error(`serverMatches prop provided to react-mql-manager must be an array containing one or more of the
-          query strings you provided as the "queries" prop.`);
-        }
-      });
-    }
-
     if (debounce && typeof debounce !== "number") {
       throw new Error(
         `Debounce prop provided to MQLManager should be type: Num (of microseconds)`
@@ -78,16 +58,9 @@ class MQLManager {
   }
 
   constructMQLsServerSide() {
-    let { queries, serverMatches } = this;
+    let { queries } = this;
 
     this.MQLs = Object.keys(queries).reduce((MQLs, currentKey) => {
-      if (serverMatches) {
-        serverMatches.includes(queries[currentKey])
-          ? (MQLs[currentKey] = { matches: true })
-          : (MQLs[currentKey] = { matches: false });
-
-        return MQLs;
-      }
       MQLs[currentKey] = { matches: true };
       return MQLs;
     }, {});
