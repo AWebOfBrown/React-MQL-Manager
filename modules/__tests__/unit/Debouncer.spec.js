@@ -10,15 +10,15 @@ describe(`Debouncer`, () => {
 
   test(`should debounce calls with a wait period`, done => {
     const funcSpy = jest.fn(() => null);
-    newDebouncer.send(funcSpy, 1000);
-    newDebouncer.send(funcSpy, 1000);
-    newDebouncer.send(funcSpy, 1000);
+    newDebouncer.send(funcSpy, 100);
+    newDebouncer.send(funcSpy, 100);
+    newDebouncer.send(funcSpy, 100);
     expect(funcSpy).not.toHaveBeenCalled();
 
     setTimeout(() => {
       expect(funcSpy).toHaveBeenCalledTimes(1);
       done();
-    }, 1100);
+    }, 200);
   });
 
   test(`fn debounced with wait = 0 should override prev debounce`, done => {
@@ -30,6 +30,6 @@ describe(`Debouncer`, () => {
     setTimeout(() => {
       expect(funcSpy).toHaveBeenCalledTimes(1);
       done();
-    }, 1100);
+    }, 100);
   });
 });
