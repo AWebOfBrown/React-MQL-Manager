@@ -13,7 +13,8 @@ beforeAll(() => {
   WrappedWMQ = withMediaQueries(Wrapped, customPropName);
   shallowRender = shallow(<WrappedWMQ />, {
     context: {
-      mediaQueriesSubscription: () => () => null
+      __React_MQL_Manager_Subscription__: () => () => null,
+      __React_MQL_Manager_Initial_State__: { some: true }
     }
   });
 });

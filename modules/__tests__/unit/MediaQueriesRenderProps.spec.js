@@ -12,7 +12,8 @@ beforeAll(() => {
     <MediaQueriesRenderProps render={() => <div>hello </div>} />,
     {
       context: {
-        mediaQueriesSubscription: () => () => null
+        __React_MQL_Manager_Subscription__: () => () => null,
+        __React_MQL_Manager_Initial_State__: { some: true }
       }
     }
   );

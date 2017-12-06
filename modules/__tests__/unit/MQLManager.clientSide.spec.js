@@ -17,10 +17,6 @@ describe("MQLManager client-side", () => {
     });
   });
 
-  test("should call onChange during initialisation", () => {
-    expect(onChangeSpy).toHaveBeenCalled();
-  });
-
   it("should internally construct Media Query Lists", () => {
     Object.keys(queries).forEach(key =>
       expect(testMQLManager.MQLs).toHaveProperty(key)
@@ -28,28 +24,23 @@ describe("MQLManager client-side", () => {
   });
 
   test("should debounce calls to onChange", done => {
-    testMQLManager.broadcastState();
-    testMQLManager.broadcastState();
-    testMQLManager.broadcastState();
+    testMQLManager._broadcastState();
+    testMQLManager._broadcastState();
+    testMQLManager._broadcastState();
     // expect one call to onChangeSpy from init,
     // 1 more after debouncing above three calls:
-    expect(onChangeSpy).toHaveBeenCalledTimes(1);
+    expect(onChangeSpy).toHaveBeenCalledTimes(0);
     setTimeout(() => {
-      expect(onChangeSpy).toHaveBeenCalledTimes(2);
+      expect(onChangeSpy).toHaveBeenCalledTimes(1);
       done();
     }, debounce + 100);
   });
 
   it(`should error if an MQL's media prop === "not all", as its query is incorrectly written.`, function() {
-    let badQueryManager = new MQLManager({
-      queries: { faultyQueryName: "not used" },
-      onChange: onChangeSpy,
-      debounce: 100
-    });
     this.badMQL = { media: "not all" };
 
     expect(() =>
-      badQueryManager.validateMQLMedia(this.badMQL, "faultyQueryName")
+      MQLManager.validateMQLMedia(this.badMQL, "faultyQueryName")
     ).toThrowError(/ignored/);
   });
 
