@@ -12,15 +12,15 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
       super(props);
       this.unsubscribe = null;
       this.state = {
-        mediaQueries: context.mediaQueriesInitialState
+        mediaQueries: context["__React_MQL_Manager_Initial_State__"]
       };
       this.mediaQueriesPropName = mediaQueriesPropName || "mediaQueries";
     }
 
     componentDidMount() {
-      this.unsubscribe = this.context.mediaQueriesSubscription(MQMatches => {
-        this.setState({ mediaQueries: MQMatches });
-      });
+      this.unsubscribe = this.context[
+        "__React_MQL_Manager_Subscription__"
+      ](MQMatches => this.setState({ mediaQueries: MQMatches }));
     }
 
     componentWillUnmount() {
@@ -45,8 +45,9 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
   )})`;
 
   WithMediaQueries.contextTypes = {
-    mediaQueriesSubscription: PropTypes.func.isRequired,
-    mediaQueriesInitialState: PropTypes.objectOf(PropTypes.bool).isRequired
+    __React_MQL_Manager_Subscription__: PropTypes.func.isRequired,
+    __React_MQL_Manager_Initial_State__: PropTypes.objectOf(PropTypes.bool)
+      .isRequired
   };
 
   return WithMediaQueries;
