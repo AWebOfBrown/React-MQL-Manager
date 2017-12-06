@@ -1,27 +1,39 @@
 import Debouncer from "./utils/Debouncer";
 
 class MQLManager {
-  constructor({ queries, debounce = 0, onChange }) {
+  constructor({ queries, debounce = 0, onChange, parentMounted = true }) {
     this.MQLs = {};
-    this.queries = queries;
     this.debounce = debounce;
     this.onChange = onChange;
     this.BroadcastDebouncer = new Debouncer();
+    this.listenersAttached = false;
 
-    this.validateArgs({
+    this.getMatchState = this.getMatchState.bind(this);
+    this.addListeners = this.addListeners.bind(this);
+    this.removeListeners = this.removeListeners.bind(this);
+    this._broadcastState = this._broadcastState.bind(this);
+
+    this._validateArgs({
       queries,
       debounce,
-      onChange
+      onChange,
+      parentMounted
     });
 
     if (typeof window === "object") {
-      this.constructMQLs();
+      this._constructMQLs({ queries, parentMounted });
     } else {
-      this.constructMQLsServerSide();
+      this._constructMQLsServerSide({ queries });
     }
   }
 
-  validateArgs({ queries, debounce, onChange }) {
+  _validateArgs({ queries, debounce, onChange, parentMounted }) {
+    if (typeof parentMounted !== "boolean") {
+      throw new Error(
+        `parentMounted argument provided to MQLManager must be a Boolean.`
+      );
+    }
+
     if (!onChange || typeof onChange !== "function") {
       throw new Error(
         `Provide an onChange function to MQLManager
@@ -45,41 +57,57 @@ class MQLManager {
 
     if (debounce && typeof debounce !== "number") {
       throw new Error(
-        `Debounce prop provided to MQLManager should be type: Num (of microseconds)`
+        `Debounce prop provided to MQLManager should be type: Num (of milliseconds)`
       );
     }
   }
 
-  broadcastState({ immediate } = { immediate: false }) {
+  _broadcastState() {
     this.BroadcastDebouncer.send(
       () => this.onChange(this.getMatchState()),
-      immediate ? 0 : this.debounce
+      this.debounce
     );
   }
 
-  constructMQLsServerSide() {
-    let { queries } = this;
-
+  _constructMQLsServerSide({ queries }) {
     this.MQLs = Object.keys(queries).reduce((MQLs, currentKey) => {
       MQLs[currentKey] = { matches: true };
       return MQLs;
     }, {});
   }
 
-  constructMQLs() {
-    Object.keys(this.queries).forEach(queryName => {
-      this.MQLs[queryName] = window.matchMedia(this.queries[queryName]);
-      this.validateMQLMedia(this.MQLs[queryName], queryName);
-      this.MQLs[queryName].addListener(() => this.broadcastState());
+  _constructMQLs({ queries, parentMounted }) {
+    Object.keys(queries).forEach(queryName => {
+      this.MQLs[queryName] = window.matchMedia(queries[queryName]);
+      MQLManager.validateMQLMedia(this.MQLs[queryName], queryName);
     });
-    this.broadcastState({ immediate: true });
+
+    if (parentMounted) {
+      this.addListeners();
+    }
   }
 
-  validateMQLMedia(MQL, queryName) {
+  addListeners() {
+    if (!this.listenersAttached) {
+      Object.keys(this.MQLs).forEach(MQL => {
+        this.MQLs[MQL].addListener(this._broadcastState);
+      });
+      this.listenersAttached = true;
+    }
+  }
+
+  removeListeners() {
+    if (this.listenersAttached) {
+      Object.keys(this.MQLs).forEach(MQL => {
+        this.MQLs[MQL].removeListener(this._broadcastState);
+      });
+    }
+  }
+
+  static validateMQLMedia(MQL, queryName) {
     if (MQL.media === "not all") {
       throw new Error(`The MQL media query for MQLManager.queries["${queryName}"] is being ignored, likely because
-        the provided media query string for that key is invalid. Please alter this query string: ${this
-          .queries[queryName]}. For more details: https://goo.gl/QvLybE`);
+        the provided media query string for that key is invalid. Please alter this query string. For more details: https://goo.gl/QvLybE`);
     }
   }
 
