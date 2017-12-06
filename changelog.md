@@ -1,6 +1,11 @@
-## 0.0.8 (December 6, 2017)
+# 0.0.81 (December 6, 2017)
 
-### General
+## MQLManager
+* Set `queries` and `onChange` default arg to `null` to fix argument validation. 
+
+# 0.0.8 (December 6, 2017)
+
+## General
 * Add a changelog. 
 
 ## Provider / withMediaQueries / MediaQueriesRenderProps 
