@@ -1,7 +1,12 @@
 import Debouncer from "./utils/Debouncer";
 
 class MQLManager {
-  constructor({ queries, debounce = 0, onChange, parentMounted = true }) {
+  constructor({
+    queries = null,
+    debounce = 0,
+    onChange = null,
+    parentMounted = true
+  }) {
     this.MQLs = {};
     this.debounce = debounce;
     this.onChange = onChange;
