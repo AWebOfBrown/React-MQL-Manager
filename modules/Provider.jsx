@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+
 import MQLManager from "./MQLManager";
 
 class Provider extends Component {
@@ -18,9 +19,6 @@ class Provider extends Component {
     // add subscription (this.setState() func from HOC) to list executed
     // when MQLs' match states change
     this.subscriptions.push(updateHOCFunction);
-    // call update in HOC once after subscribing,
-    // future updates called from this.MQLManager when MQL match event fires
-    updateHOCFunction(this.MQLManager.getMatchState());
     // return unsubscribe function to be used in HOC's
     // componentWillUnmount() - stops Provider from
     // holding a reference to unmounted HOC preventing
@@ -33,7 +31,7 @@ class Provider extends Component {
   }
 
   broadcast(MQMatchState) {
-    if (this.subscriptions) {
+    if (this.subscriptions.length) {
       return this.subscriptions.forEach(updateHOCFunction =>
         updateHOCFunction(MQMatchState)
       );
@@ -42,8 +40,8 @@ class Provider extends Component {
 
   getChildContext() {
     return {
-      mediaQueriesSubscription: this.subscribe,
-      mediaQueriesInitialState: this.MQLManager.getMatchState()
+      __React_MQL_Manager_Initial_State__: this.MQLManager.getMatchState(),
+      __React_MQL_Manager_Subscription__: this.subscribe
     };
   }
 
@@ -53,8 +51,9 @@ class Provider extends Component {
 }
 
 Provider.childContextTypes = {
-  mediaQueriesSubscription: PropTypes.func.isRequired,
-  mediaQueriesInitialState: PropTypes.objectOf(PropTypes.bool).isRequired
+  __React_MQL_Manager_Initial_State__: PropTypes.objectOf(PropTypes.bool)
+    .isRequired,
+  __React_MQL_Manager_Subscription__: PropTypes.func.isRequired
 };
 
 Provider.propTypes = {
