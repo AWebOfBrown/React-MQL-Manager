@@ -1,6 +1,6 @@
 # Use with React and a State Management Library
 When using a state management libary, you will only need to interact with the `MQLManager` component, usually
-by instantiating it as a component class propery.
+by instantiating it as a component class property.
 
 ## MQLManager Constructor
 The MQLManager constructor function accepts one required argument, being an object with the following properties:
@@ -10,7 +10,7 @@ The MQLManager constructor function accepts one required argument, being an obje
 | queries | Object | ✓ | An object where the values must be valid css media query strings and the key names can be any string. |
 | onChange | Function | ✓ | A function which fires when one of your media queries matches, or no longer matches. Use this to dispatch an action or trigger a setter, where the argument provided to the function is your queries object, with boolean values representing whether the queries match or not (see example below).|
 | debounce | Number | x | An optional debounce number (of microseconds) applied to your onChange function. | 
-| parentMounted | Boolean | x | Specify whether the component that you are instantiating MQLManager from has mounted (if applicable). Defaults to **true**. See further below. 
+| parentMounted | Boolean | x | Specify whether the component that you are instantiating MQLManager from has mounted (if applicable). Defaults to **true**. See further the examples below. 
 
 ## MQLManager methods
 | Method Name | Description |
@@ -18,8 +18,6 @@ The MQLManager constructor function accepts one required argument, being an obje
 | attachListeners | Used to attach listeners to the internal media query lists after the component has mounted, preventing a potential memory leak if async rendering is enabled. Call from `componentDidMount`. 
 | detachListeners | If, for some reason, the component you are using `MQLManager` within unmounts (e.g. on route change), call this in `componentWillUnmount` to prevent memory leaks.
 | getMatchState | Used to get the current match state of each query, returns an object whose keys are the names of your queries, values are Booleans. You most likely don't need this as your `onChange` function should handle changes, it is for initialising state when no state management lib is used.  
-
-## Where to instantiate MQLManager
 
 # Examples
 A typical example with Redux/MobX is illustrated below. Note that this assumes you have set up
