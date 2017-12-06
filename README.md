@@ -3,7 +3,9 @@
 
 React-MQL-Manager is an unopinionated, flexible set of modules allowing you to handle media queries in React (or JS generally) regardless of your approach to state management. It internally constructs [Media Query Lists](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList) and provides an API allowing you to react to changes.
 
-At the libraries' core is the MQL-Manager class (not a React component) that internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
+If you are **not using a state-management library**, `React-MQL-Manager` exports a `<Provider>` component to pass your queries down your component tree, as well as a higher-order component: `withMediaQueries`, or alternatively, a `<MediaQueriesRenderProps>` component to wrap any child component that needs to access the queries match state. [See further here](https://github.com/AWebOfBrown/React-MQL-Manager/blob/master/documentation/withoutStateManagementLibs.md)
+
+If you **are using a state-management library**, you will interact with the core class of the library, the MQL-Manager class. This class (not a React component) internally constructs your Media Query Lists based on a simple `queries` argument you provide, like so:
 
 ```javascript
 // ES Modules
@@ -19,7 +21,7 @@ const myQueryManager = new MQLManager({
     debounce: 1000
 })
 ```
-The `onChange` argument you provide fires every time one of your queries' match state changes, but can be debounced using the optional `debounce` argument (type: Num of microseconds).
+The `onChange` argument you provide fires every time one of your queries' match state changes, but can be debounced using the optional `debounce` argument (type: Num of microseconds). [See further here](https://github.com/AWebOfBrown/React-MQL-Manager/blob/master/documentation/withStateManagementLibs.md)
 
 React-MQL-Manager can be consumed as CommonJS modules, ES modules or UMD.
 
@@ -33,14 +35,5 @@ or
 ## Demo
 See a codesandbox.io demo of React-MQL-Manager with no state management lib, Redux, and Mobx, and React-Broadcast [here](https://codesandbox.io/s/p93xmm0zmm)
 
-## Documentation / How To: 
-### Use with React and No State Management Library / API
-See [documentation](https://github.com/AWebOfBrown/React-MQL-Manager/blob/master/documentation/vanillaReact.md).
-
-React-MQL-Manager exports a Provider component which uses the context API to broadcast match state changes to
-any component in your React component tree. It uses the MQLManager module internally, and all you need to do is pass the `Provider` a `queries` prop, optionally provide a `debounce` prop, and wrap your custom components (which need the media query state) with either React-MQL-Manager's `withMediaQueries` Higher-Order-Component, or use the `MediaQueriesRenderProps` component. Please see the documentation for further details, and the codesandbox demo for a simple implementation.
-### Use with React and State Management Libraries (e.g. Redux & MobX) / API
-See [documentation](https://github.com/AWebOfBrown/React-MQL-Manager/blob/master/documentation/mobXAndRedux.md).
-
-The most common use-case would be to wrap a custom React (class) component, ideally one that does not
-unmount, with `react-redux`'s `connect()` or `mobx-react`'s `inject()`. You would then import and set an MQLManager as your component's class property, and lastly specify, respectively, a mapDispatchToProps function, or a setter action injected from a MobX store, to MQLManager's onChange argument. For more, see the documentation and the codesandbox demo, linked above, for simple integrations with both libraries.
+## Troubleshooting
+[See here](https://github.com/AWebOfBrown/React-MQL-Manager/blob/master/documentation/troubleshooting.md)
