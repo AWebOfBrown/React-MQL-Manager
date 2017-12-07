@@ -1,3 +1,9 @@
+# 0.0.82 (December 7, 2017)
+
+## Provider / withMediaQueries / MediaQueriesRenderProps
+* Fixed initial state context key, making it a function rather than object, allowing components mounting after
+first render to pull current media query match state before rendering. 
+
 # 0.0.81 (December 6, 2017)
 
 ## MQLManager
