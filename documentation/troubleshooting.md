@@ -1,5 +1,8 @@
 # Troubleshooting
 
+## I get "Cannot call setState on a mounting or unmounted component" errors in development.
+If you are using the `<Provider>` and its HOCs, this might be occuring because the component rendering your `<MediaQueriesRenderProps>` or `withMediaQueries` HOC is unmounting in response to the same window event triggering the `setState`. Because `setState` is asynchronous, it will fire after the component unmounts, generating the warning. This is not problematic as the component will unsubscribe and ultimately the instance will be destroyed (and garbage collected). 
+
 ## I recieved "The MQL media query for  ... is being ignored, likely because the provided media query string for that key is invalid. Please alter this query string."
 According to the [spec](https://www.w3.org/TR/css3-mediaqueries/#error-handling), a media query is represented as "not all" when one of its media features is not known. In plainer English: it is highly likely you wrote an invalid media query string. If this is not the case, please file an issue as it may indicate that this error should be a warning.
 
