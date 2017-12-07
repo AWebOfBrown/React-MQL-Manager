@@ -14,7 +14,7 @@ beforeAll(() => {
   shallowRender = shallow(<WrappedWMQ />, {
     context: {
       __React_MQL_Manager_Subscription__: () => () => null,
-      __React_MQL_Manager_Initial_State__: { some: true }
+      __React_MQL_Manager_Initial_State__: () => null
     }
   });
 });

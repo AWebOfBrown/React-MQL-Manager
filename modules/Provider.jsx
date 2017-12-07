@@ -40,7 +40,7 @@ class Provider extends Component {
 
   getChildContext() {
     return {
-      __React_MQL_Manager_Initial_State__: this.MQLManager.getMatchState(),
+      __React_MQL_Manager_Initial_State__: this.MQLManager.getMatchState,
       __React_MQL_Manager_Subscription__: this.subscribe
     };
   }
@@ -51,8 +51,7 @@ class Provider extends Component {
 }
 
 Provider.childContextTypes = {
-  __React_MQL_Manager_Initial_State__: PropTypes.objectOf(PropTypes.bool)
-    .isRequired,
+  __React_MQL_Manager_Initial_State__: PropTypes.func.isRequired,
   __React_MQL_Manager_Subscription__: PropTypes.func.isRequired
 };
 

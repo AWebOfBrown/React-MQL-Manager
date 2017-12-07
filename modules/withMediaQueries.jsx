@@ -12,7 +12,7 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
       super(props);
       this.unsubscribe = null;
       this.state = {
-        mediaQueries: context["__React_MQL_Manager_Initial_State__"]
+        mediaQueries: context.__React_MQL_Manager_Initial_State__()
       };
       this.mediaQueriesPropName = mediaQueriesPropName || "mediaQueries";
     }
@@ -46,8 +46,7 @@ function withMediaQueries(WrappedComponent, mediaQueriesPropName) {
 
   WithMediaQueries.contextTypes = {
     __React_MQL_Manager_Subscription__: PropTypes.func.isRequired,
-    __React_MQL_Manager_Initial_State__: PropTypes.objectOf(PropTypes.bool)
-      .isRequired
+    __React_MQL_Manager_Initial_State__: PropTypes.func.isRequired
   };
 
   return WithMediaQueries;
