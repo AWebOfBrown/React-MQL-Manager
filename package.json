@@ -1,6 +1,6 @@
 {
   "name": "react-mql-manager",
-  "version": "0.0.81",
+  "version": "0.0.82",
   "description": "React Media Query List Manager",
   "engines": {
     "node": ">=7.6.0"
